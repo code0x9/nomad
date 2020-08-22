@@ -12,6 +12,11 @@ func Test_Check(t *testing.T) {
 	f, err := ioutil.TempFile("", "fileperms")
 	require.NoError(t, err)
 
+	t.Cleanup(func() {
+		require.NoError(t, f.Close())
+		require.NoError(t, os.RemoveAll(f.Name()))
+	})
+
 	t.Run("matches", func(t *testing.T) {
 		err := Check(f, Oct600)
 		require.NoError(t, err)
@@ -27,10 +32,5 @@ func Test_Check(t *testing.T) {
 		require.NoError(t, err)
 		err = Check(f, Oct655)
 		require.NoError(t, err)
-	})
-
-	t.Cleanup(func() {
-		require.NoError(t, f.Close())
-		require.NoError(t, os.RemoveAll(f.Name()))
 	})
 }
