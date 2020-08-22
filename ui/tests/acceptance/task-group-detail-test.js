@@ -473,7 +473,7 @@ module('Acceptance | task group detail', function(hooks) {
     const scaleEvents = taskGroupScale.events.models.sortBy('time').reverse();
     await TaskGroup.visit({ id: job.id, name: taskGroup.name });
 
-    assert.notOk(TaskGroup.hasScaleEvents);
+    assert.ok(TaskGroup.hasScaleEvents);
     assert.ok(TaskGroup.hasScalingTimeline);
 
     assert.equal(
